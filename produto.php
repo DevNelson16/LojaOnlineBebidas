@@ -5,7 +5,8 @@ include 'includes/header.php';
 
 <a href="index.php" class="link-voltar">Voltar aos produtos</a>
 
-<section class="detalhe-produto">
+<section class="detalhe-produto" id="detalhe-produto"
+         data-id="1" data-nome="Coca-Cola 33cl" data-preco="1.20" data-emoji="🥤">
     <div class="detalhe-imagem">🥤</div>
 
     <div class="detalhe-info">
@@ -23,7 +24,7 @@ include 'includes/header.php';
             <input type="number" id="quantidade" value="1" min="1">
         </div>
 
-        <button class="btn btn-grande">Adicionar ao carrinho</button>
+        <button class="btn btn-grande" id="btn-adicionar-detalhe">Adicionar ao carrinho</button>
     </div>
 </section>
 

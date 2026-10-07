@@ -83,7 +83,21 @@ include 'includes/header.php';
         </div>
     </article>
 
+    <article class="card" data-id="1" data-categoria="refrigerantes" data-nome="Coca-Cola 33cl" data-preco="1.20">
+    <div class="card-imagem">🥤</div>
+    <div class="card-corpo">
+        <span class="card-categoria">Refrigerantes</span>
+        <h3>Coca-Cola 33cl</h3>
+        <p class="preco">1,20 €</p>
+        <div class="card-botoes">
+            <a href="produto.php" class="btn btn-secundario">Detalhes</a>
+            <button class="btn btn-adicionar">Adicionar</button>
+        </div>
+    </div>
+</article>
 </section>
+
+<p class="sem-resultados" id="sem-resultados" hidden>Nenhum produto encontrado.</p>
 
 <footer>
     <?php include 'includes/footer.php'; ?>

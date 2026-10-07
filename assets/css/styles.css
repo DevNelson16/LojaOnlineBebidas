@@ -313,3 +313,19 @@ footer {
         gap: 10px;
     }
 }
+
+[hidden] {
+    display: none !important;
+}
+
+.sem-resultados,
+.carrinho-vazio {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--cor-cinza);
+}
+
+.carrinho-vazio a {
+    color: var(--cor-principal);
+    text-decoration: underline;
+}
