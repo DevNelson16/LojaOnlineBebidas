@@ -81,3 +81,8 @@ JOIN categorias c ON p.categoria_id = c.id
 ORDER BY c.nome, p.nome;
 SELECT nome, preco FROM produtos
 WHERE ativo = 1 AND nome LIKE '%cola%';
+SELECT e.id, e.nome_cliente, p.nome, i.quantidade, i.preco_unitario,
+       (i.quantidade * i.preco_unitario) AS subtotal
+FROM encomendas e
+JOIN itens_encomenda i ON i.encomenda_id = e.id
+JOIN produtos p ON i.produto_id = p.id;

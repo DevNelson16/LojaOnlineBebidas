@@ -1,104 +1,60 @@
 <?php
+require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/includes/funcoes.php';
+
 $tituloPagina = 'Início - Loja de Bebidas';
+
+$categorias = $pdo->query('SELECT nome, slug FROM categorias ORDER BY nome')->fetchAll();
+
+$sql = 'SELECT p.id, p.nome, p.preco, p.emoji,
+               c.nome AS categoria_nome, c.slug AS categoria_slug
+        FROM produtos p
+        JOIN categorias c ON p.categoria_id = c.id
+        WHERE p.ativo = 1
+        ORDER BY p.nome';
+$produtos = $pdo->query($sql)->fetchAll();
+
 include 'includes/header.php';
 ?>
 
 <section class="barra-pesquisa">
-    <input type="text" id="pesquisa" placeholder="pesquisar bebidas...">
+    <input type="text" id="pesquisa" placeholder="Pesquisar bebidas...">
 </section>
 
-<section>
-    <button class="btn-categoria ativa" data-categorias="todas">Todos</button>
-    <button class="btn-categoria ativa" data-categorias="refrigerantes">Refrigerantes</button>
-    <button class="btn-categoria ativa" data-categorias="sumos">Sumos</button>
-    <button class="btn-categoria ativa" data-categorias="aguas">Águas</button><button class="btn-categoria ativa" data-categorias="todas">Todos</button>
-    <button class="btn-categoria ativa" data-categorias="cervejas">Cervejas</button>
-    <button class="btn-categoria ativa" data-categorias="vinhos">Vinhos</button>
+<section class="categorias">
+    <button class="btn-categoria ativa" data-categoria="todas">Todas</button>
+    <?php foreach ($categorias as $categoria): ?>
+        <button class="btn-categoria" data-categoria="<?php echo e($categoria['slug']); ?>">
+            <?php echo e($categoria['nome']); ?>
+        </button>
+    <?php endforeach; ?>
 </section>
+
+<h2 class="titulo-seccao">Os nossos produtos</h2>
 
 <section class="grelha-produtos" id="lista-produtos">
-
-    <article class="card" data-categoria="refrigerantes" data-nome="Coca-Cola 33cl">
-        <div class="card-imagem">🥤</div>
-        <div class="card-corpo">
-            <span class="card-categoria">Refrigerantes</span>
-            <h3>Coca-Cola 33cl</h3>
-            <p class="preco">1,20 €</p>
-            <div class="card-botoes">
-                <a href="produto.php" class="btn btn-secundario">Detalhes</a>
-                <button class="btn">Adicionar</button>
+    <?php foreach ($produtos as $produto): ?>
+        <article class="card"
+            data-id="<?php echo (int) $produto['id']; ?>"
+            data-categoria="<?php echo e($produto['categoria_slug']); ?>"
+            data-nome="<?php echo e($produto['nome']); ?>"
+            data-preco="<?php echo e($produto['preco']); ?>">
+            <div class="card-imagem"><?php echo e($produto['emoji']); ?></div>
+            <div class="card-corpo">
+                <span class="card-categoria"><?php echo e($produto['categoria_nome']); ?></span>
+                <h3><?php echo e($produto['nome']); ?></h3>
+                <p class="preco"><?php echo formatar_preco($produto['preco']); ?></p>
+                <div class="card-botoes">
+                    <a href="produto.php?id=<?php echo (int) $produto['id']; ?>" class="btn btn-secundario">Detalhes</a>
+                    <button class="btn btn-adicionar">Adicionar</button>
+                </div>
             </div>
-        </div>
-    </article>
-
-    <article class="card" data-categoria="sumos" data-nome="Sumo de Laranja 1L">
-        <div class="card-imagem">🍊</div>
-        <div class="card-corpo">
-            <span class="card-categoria">Sumos</span>
-            <h3>Sumo de Laranja 1L</h3>
-            <p class="preco">2,50 €</p>
-            <div class="card-botoes">
-                <a href="produto.php" class="btn btn-secundario">Detalhes</a>
-                <button class="btn">Adicionar</button>
-            </div>
-        </div>
-    </article>
-
-    <article class="card" data-categoria="aguas" data-nome="Água Mineral 1,5L">
-        <div class="card-imagem">💧</div>
-        <div class="card-corpo">
-            <span class="card-categoria">Águas</span>
-            <h3>Água Mineral 1,5L</h3>
-            <p class="preco">0,70 €</p>
-            <div class="card-botoes">
-                <a href="produto.php" class="btn btn-secundario">Detalhes</a>
-                <button class="btn">Adicionar</button>
-            </div>
-        </div>
-    </article>
-
-    <article class="card" data-categoria="cervejas" data-nome="Cerveja Lager 33cl">
-        <div class="card-imagem">🍺</div>
-        <div class="card-corpo">
-            <span class="card-categoria">Cervejas</span>
-            <h3>Cerveja Lager 33cl</h3>
-            <p class="preco">1,10 €</p>
-            <div class="card-botoes">
-                <a href="produto.php" class="btn btn-secundario">Detalhes</a>
-                <button class="btn">Adicionar</button>
-            </div>
-        </div>
-    </article>
-
-    <article class="card" data-categoria="vinhos" data-nome="Vinho Tinto Alentejo">
-        <div class="card-imagem">🍷</div>
-        <div class="card-corpo">
-            <span class="card-categoria">Vinhos</span>
-            <h3>Vinho Tinto Alentejo</h3>
-            <p class="preco">6,90 €</p>
-            <div class="card-botoes">
-                <a href="produto.php" class="btn btn-secundario">Detalhes</a>
-                <button class="btn">Adicionar</button>
-            </div>
-        </div>
-    </article>
-
-    <article class="card" data-id="1" data-categoria="refrigerantes" data-nome="Coca-Cola 33cl" data-preco="1.20">
-    <div class="card-imagem">🥤</div>
-    <div class="card-corpo">
-        <span class="card-categoria">Refrigerantes</span>
-        <h3>Coca-Cola 33cl</h3>
-        <p class="preco">1,20 €</p>
-        <div class="card-botoes">
-            <a href="produto.php" class="btn btn-secundario">Detalhes</a>
-            <button class="btn btn-adicionar">Adicionar</button>
-        </div>
-    </div>
-</article>
+        </article>
+    <?php endforeach; ?>
 </section>
 
-<p class="sem-resultados" id="sem-resultados" hidden>Nenhum produto encontrado.</p>
+<p class="sem-resultados" id="sem-resultados" <?php echo empty($produtos) ? '' : 'hidden'; ?>>
+    Nenhum produto encontrado.
+</p>
 
-<footer>
-    <?php include 'includes/footer.php'; ?>
-</footer>
+<?php include 'includes/footer.php'; ?>
