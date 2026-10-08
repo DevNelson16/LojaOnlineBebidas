@@ -255,8 +255,61 @@ function iniciarCarrinho() {
 
     desenharCarrinho();
 }
+
+function iniciarCheckout() {
+    const formulario = document.getElementById('form-checkout');
+    if (!formulario) {
+        return;
+    }
+
+    const carrinho = obterCarrinho();
+    const lista = document.getElementById('lista-resumo');
+    let html = '';
+    let total = 0;
+
+    for (const item of carrinho) {
+        const subtotal = item.preco * item.quantidade;
+        total += subtotal;
+        html += `<li><span>${item.emoji} ${item.nome} × ${item.quantidade}</span><span>${formatarPreco(subtotal)}</span></li>`;
+    }
+
+    if (carrinho.length === 0) {
+        html = '<li>O carrinho está vazio. <a href="index.php">Ver produtos</a></li>';
+    }
+
+    lista.innerHTML = html;
+    document.getElementById('total-checkout').textContent = formatarPreco(total);
+
+    formulario.addEventListener('submit', function (evento) {
+        const carrinhoAtual = obterCarrinho();
+
+        if (carrinhoAtual.length === 0) {
+            evento.preventDefault();
+            alert('O carrinho está vazio.');
+            return;
+        }
+
+        const itens = carrinhoAtual.map(function (item) {
+            return { id: item.id, quantidade: item.quantidade };
+        });
+
+        document.getElementById('campo-carrinho').value = JSON.stringify(itens);
+    });
+}
+
+function limparCarrinhoAposEncomenda() {
+    if (!document.getElementById('encomenda-sucesso')) {
+        return;
+    }
+
+    localStorage.removeItem(CHAVE_CARRINHO);
+    atualizarContador();
+}
+
 atualizarContador();
 iniciarPesquisaEFiltros();
 iniciarBotoesAdicionar();
 iniciarDetalheProduto();
 iniciarCarrinho();
+iniciarCheckout();
+limparCarrinhoAposEncomenda();

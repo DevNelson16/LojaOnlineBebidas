@@ -329,3 +329,84 @@ footer {
     color: var(--cor-principal);
     text-decoration: underline;
 }
+
+.checkout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+.formulario-checkout {
+    background-color: white;
+    padding: 25px;
+    border-radius: var(--raio);
+    border: 1px solid var(--cor-borda);
+}
+
+.formulario-checkout label {
+    display: block;
+    margin: 14px 0 6px;
+    font-weight: bold;
+}
+
+.formulario-checkout input,
+.formulario-checkout textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+}
+
+.formulario-checkout button {
+    margin-top: 20px;
+}
+
+.caixa-erros {
+    background-color: #fdecea;
+    border: 1px solid var(--cor-principal);
+    color: var(--cor-principal-escura);
+    padding: 15px 20px;
+    border-radius: var(--raio);
+    margin-bottom: 20px;
+}
+
+.caixa-erros ul {
+    margin-left: 20px;
+}
+
+.lista-resumo {
+    list-style: none;
+}
+
+.lista-resumo li {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.mensagem-sucesso {
+    text-align: center;
+    background-color: white;
+    padding: 50px 20px;
+    border-radius: var(--raio);
+    border: 1px solid var(--cor-borda);
+}
+
+.mensagem-sucesso h2 {
+    margin-bottom: 12px;
+}
+
+.mensagem-sucesso p {
+    margin-bottom: 20px;
+}
+
+@media (max-width: 700px) {
+    .checkout {
+        grid-template-columns: 1fr;
+    }
+}
