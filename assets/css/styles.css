@@ -509,3 +509,76 @@ footer {
 .caixa-login h2 {
     margin-bottom: 15px;
 }
+.barra-acoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.caixa-sucesso {
+    background-color: #d4edda;
+    border: 1px solid #155724;
+    color: #155724;
+    padding: 12px 18px;
+    border-radius: var(--raio);
+    margin-bottom: 15px;
+}
+
+.linha-inativa td {
+    opacity: 0.55;
+}
+
+.estado-ativo { background-color: #d4edda; color: #155724; }
+.estado-inativo { background-color: #e2e3e5; color: #383d41; }
+
+.acoes-tabela {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.acoes-tabela form {
+    display: inline;
+}
+
+.btn-pequeno {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+}
+
+.btn-perigo {
+    background-color: white;
+    color: #721c24;
+    border: 1px solid #721c24;
+}
+
+.btn-perigo:hover {
+    background-color: #f8d7da;
+}
+
+.caixa-form {
+    max-width: 600px;
+}
+
+.formulario-checkout select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+    background-color: white;
+}
+
+.formulario-checkout .label-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    font-weight: normal;
+}
+
+.formulario-checkout input[type="checkbox"] {
+    width: auto;
+}
